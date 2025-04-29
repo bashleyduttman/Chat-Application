@@ -1,0 +1,182 @@
+/* above code is temporary delete once project got over */
+.contactList {
+  background-color: rgb(26, 22, 22);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vw;
+  width: 100%;
+  gap: 20px;
+  padding-top: 80px;
+  padding-left: 30px;
+  padding-right: 39px;
+  font-size: clamp(0.5rem, 2vw, 1.5rem);
+  user-select: none;
+}
+.contact-box {
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+}
+.contact-box:focus {
+  background-color: black;
+}
+
+.contact-outer-box {
+  display: flex;
+}
+.contact-in-box {
+  display: flex;
+  /* width: 100%; */
+  font-weight: bold;
+  flex-direction: column;
+}
+.others {
+  color: green;
+  font-weight: bolder;
+}
+.contact-name {
+  color: white;
+}
+.recent-msg {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  color: rgb(105, 97, 97);
+}
+.contact-box {
+  background-color: rgb(26, 22, 22);
+}
+.contact-box:hover {
+  background-color: rgb(41, 39, 37);
+}
+.menu-box {
+  border-radius: 10px;
+  transition: all 0.2s ease-in;
+  z-index: 1000;
+  display: flex;
+  /* font-size: 20px; */
+  color:white;
+  height: 200px;
+  
+  justify-content: space-around;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  background-color: rgb(43, 42, 42);
+  /* box-shadow: 2px 2px 2px rgb(50, 48, 48); */
+}
+.contactList-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: white;
+}
+.search-box {
+  display: flex;
+
+  align-items: center;
+}
+.chat-inp {
+  width: 100%;
+  color: rgb(254, 254, 254);
+  font-size: 20px;
+  padding-left: 40px;
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
+  border: solid 2px white;
+  border-left: none;
+  user-select: none;
+  border-top: none;
+  border-right: none;
+  background-color: rgb(26, 22, 22);
+}
+.menu-box div {
+  cursor: pointer;
+}
+
+.chat-inp:focus {
+  background-color: rgb(17, 13, 13);
+}
+.react-icons {
+  cursor: pointer;
+  font-size: 26px;
+}
+.react-icons:hover{
+  color:rgb(99, 87, 87)
+}
+.search-icon {
+  position: absolute;
+  left: 38px;
+  color: rgb(70, 65, 65);
+}
+.menu-inside-box {
+  display: flex;
+  /* height: 50px; */
+  /* padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px; */
+  padding:10px;
+}
+.menu-inside-box:hover {
+ 
+  background-color: rgb(20, 20, 17);
+  
+}
+.contactList-header {
+  position: relative;
+  overflow: visible;
+}
+
+.hidden-menu {
+  position: absolute;
+  z-index: 1000;
+  padding: 8px;
+  background-color: rgb(20, 16, 16);
+  border-radius: 10px;
+  width: 350px;
+  
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  max-height: 600px;
+}
+.hidden-menu::-webkit-scrollbar {
+  width: 3px;
+}
+.hidden-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hidden-menu::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.hidden-menu::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.group-box {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  justify-content: flex-start;
+  height: 50px;
+  cursor: pointer;
+  align-items: center;
+}
+.group-box:hover {
+  background-color: rgb(30, 28, 25);
+}
+.list-box {
+  display: flex;
+
+  flex-direction: column;
+ 
+}
+.frequent {
+  text-align: start;
+  padding: 10px;
+  font-size: small;
+}
