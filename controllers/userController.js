@@ -13,7 +13,7 @@ const signup = async (req, res) => {
     console.log("hello in backend");
     await user.save();
     const token = jwt.sign({ userName: name }, process.env.JWT_TOKEN, {
-      expiresIn: "1m",
+      expiresIn: "1hr",
     });
 
     return res.status(201).json({ token });
@@ -34,7 +34,7 @@ const login = async (req, res) => {
       .json({ message: "Phone number or password is Wrong" });
   } else {
     const token = jwt.sign({ name: user.name }, process.env.JWT_TOKEN, {
-      expiresIn: "1m",
+      expiresIn: "1hr",
     });
     return res.status(201).json({ token });
   }
