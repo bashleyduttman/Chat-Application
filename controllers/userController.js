@@ -1,42 +1,47 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const signup = async (req, res) => {
-  const { name, phoneNumber, password } = req.body;
+  const { username, email, password } = req.body;
+  console.log(username)
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "Fields can't be empty" });
+  }
+
   try {
-    const existingUser = await User.findOne({ phoneNumber });
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "phone number already registered" });
+      return res.status(400).json({ message: "Username already registered" });
     }
-    const user = new User({ name, phoneNumber, password });
-    console.log("hello in backend");
+
+    const user = new User({ username, email, password });
     await user.save();
-    const token = jwt.sign({ userName: name }, process.env.JWT_TOKEN, {
-      expiresIn: "1hr",
+
+    const token = jwt.sign({ username }, process.env.JWT_TOKEN, {
+      expiresIn: "1h",
     });
 
     return res.status(201).json({ token });
   } catch (err) {
-    return res.status(500).json({ message: "signup failed" });
+    console.log(err);
+    return res.status(500).json({ message: "Signup failed" });
   }
 };
+
 const login = async (req, res) => {
-    console.log("in login")
-  const { phoneNumber, password } = req.body;
-  if (!phoneNumber || !password) {
-    return res.status(400).json({ message: "Feilds cant be empty" });
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ message: "Fields can't be empty" });
   }
-  const user = await User.findOne({ phoneNumber });
-  if (user.password !== password) {
-    return res
-      .status(400)
-      .json({ message: "Phone number or password is Wrong" });
-  } else {
-    const token = jwt.sign({ name: user.name }, process.env.JWT_TOKEN, {
-      expiresIn: "1hr",
-    });
-    return res.status(201).json({ token });
+
+  const user = await User.findOne({ username });
+  if (!user || user.password !== password) {
+    return res.status(400).json({ message: "Username or password is wrong" });
   }
+
+  const token = jwt.sign({ username }, process.env.JWT_TOKEN, {
+    expiresIn: "1hr",
+  });
+  return res.status(201).json({ token ,name:username});
 };
+
 module.exports = { signup, login };
