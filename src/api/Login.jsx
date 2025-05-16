@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
-  const [phn, setPhn] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (!phn || !password) {
+    if (!name || !password) {
       setErrors((prev) => [...prev, "Fields can't be empty"]);
       return;
     }
@@ -23,15 +23,17 @@ function Login() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          phoneNumber: phn,
+          username: name,
           password: password
         })
       });
 
       const data = await res.json();
 
+
       if (res.ok) {
-        localStorage.setItem("token", data.token);
+        console.log(data)
+        localStorage.setItem("token", data.name);
         navigate("/chatPage");
       } else {
         setErrors((prev) => [...prev, data.message || "Login failed"]);
@@ -76,17 +78,14 @@ function Login() {
         <form onSubmit={handleLogin}>
           <div className="login-form">
             <div className="login-input-group">
-              <label>Phone Number</label>
+              <label>User Name</label>
               <input
-                maxLength={10}
-                onKeyDown={(e) => {
-                  if (!/[0-9]/.test(e.key) && e.key !== "Backspace") {
-                    e.preventDefault();
-                  }
-                }}
+                
+               
+                
                 onChange={(e) => {
-                  const value = e.target.value;
-                  if (/^\d*$/.test(value)) setPhn(value);
+                setName(e.target.value)
+        
                 }}
                 className="login-input"
               />

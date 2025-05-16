@@ -1,0 +1,64 @@
+.search-users{
+    width: 100%;
+    height: 40px;
+    background-color: rgb(14, 13, 13);
+    color:white;
+    padding-left: 50px;
+    font-size: 20px;
+   outline: none;
+
+}
+.search-users:focus{
+    border-bottom: solid 4px rgb(35, 131, 155);
+}
+.search-icon2{
+    position: absolute;
+    color:white;
+    top:13px;
+
+    left: 20px;
+}
+.header-AF{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    height: 100vw;
+
+}
+.user-name-box{
+    display: flex;
+    flex-direction: column;
+   padding-left: 30px;
+    gap:60px;
+    width:100%;
+    padding-top: 30px;
+
+
+
+}
+.user-name-innerbox{
+    display: flex;
+    gap:10px;
+   
+    
+    align-items: center;
+}
+.user-profile{
+    color:white;
+    font-size: 25px;
+}
+.user-name{
+   
+  font-size: 20px;
+
+   color:white;
+    
+}
+.friend-icon{
+    color:white;
+    font-size: 20px;
+    cursor: pointer;
+}
+.friend-icon:hover{
+    color:rgb(136, 117, 117);
+}

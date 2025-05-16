@@ -6,7 +6,9 @@ import Chat from './api/Chat'
 import viteLogo from '/vite.svg'
 import {Routes, Route,Link } from 'react-router-dom';
 import './App.css'
+import AddFriend from "../components/AddFriend"
 import Register from './api/Register';
+import FriendRequest from '../components/FriendRequest'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +20,8 @@ function App() {
       <Route path='chatPage' element={<Chat/>}></Route>
       <Route path="login" element={<Login/>}></Route>
       <Route path='home' element={<Home/>}></Route>
+      <Route path="addfriend" element={<AddFriend/>}></Route>
+      <Route path='friendrequest' element={<FriendRequest/>}></Route>
     </Routes>
   )
 }

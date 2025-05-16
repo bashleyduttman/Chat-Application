@@ -1,0 +1,46 @@
+.friends-list {
+  margin-top: -8px;
+  padding: 20px;
+  color: white;
+}
+
+.friends-box {
+  display: flex;
+  font-size: 20px;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 10px;
+  color: rgb(57, 210, 57);
+  transition: all 0.3s;
+  background-color: rgb(29, 29, 28);
+}
+.friends-box:hover {
+  font-size: 22px;
+}
+.outerfriends-box {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+.accept:hover{
+    color:green;
+}
+.cross:hover{
+    color:rgb(142, 14, 14);
+}
+.friendsrequest-main {
+  background-color: rgb(46, 44, 42);
+  height: 100vh;
+}
+
+.cross {
+  color: red;
+}
+
+.request-heading{
+    padding:20px;
+    font-size: 30px;
+    color:rgb(226, 223, 216);
+    border-bottom: solid 10px rgb(217, 217, 217);
+}
