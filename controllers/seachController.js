@@ -1,10 +1,9 @@
 const User = require("../models/user");
-const Fdb=require("../models/friendRequest")
+const Fdb=require("../models/friendRequest");
 const searchUser = async (req, res) => {
     const search = req.query.query;
     const NAME = req.body.NAME;
     console.log(NAME)
-
     if (!search || !search.trim()) {
         return res.status(400).json({ error: "Search query cannot be empty" });
     }
@@ -46,5 +45,4 @@ const searchUser = async (req, res) => {
         return res.status(500).json({ error: "Internal server error" });
     }
 };
-
 module.exports={searchUser}
