@@ -1,0 +1,52 @@
+.main-chatspace{
+    width:100%;
+    min-height: 100vh;
+    position: relative;
+    background-color: rgb(39, 40, 39);
+}
+.chatinput{
+    width:100%;
+    height: 35px;
+    background-color: rgb(32, 33, 32);
+    border: none;
+    outline: none;
+  
+    font-size: 20px;
+    color:white;
+      padding-left: 40px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.chatbox-inp {
+   position: absolute; /* ✅ This is missing */
+   bottom: 0px;
+   width: 100%;
+   display: flex;
+   z-index: 20000;
+   align-items: center;
+}
+
+.emoji-pickers{
+    position: absolute;
+    left: 0px;
+    top:8px;
+  
+    color:white;
+}
+
+.chatbox-inp button {
+  margin-left: 5px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.message {
+  padding: 6px 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+

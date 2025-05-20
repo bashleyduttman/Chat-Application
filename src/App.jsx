@@ -9,6 +9,7 @@ import './App.css'
 import AddFriend from "../components/AddFriend"
 import Register from './api/Register';
 import FriendRequest from '../components/FriendRequest'
+import ChatSpace from '../components/ChatSpace'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
       <Route path='home' element={<Home/>}></Route>
       <Route path="addfriend" element={<AddFriend/>}></Route>
       <Route path='friendrequest' element={<FriendRequest/>}></Route>
+      <Route path="chatspace" element={<ChatSpace/>}></Route>
     </Routes>
   )
 }

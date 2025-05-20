@@ -19,7 +19,9 @@ function ContactList() {
   const [group, setGroup] = useState(false);
   const [name, setName] = useState("");
   const [hamBox, setHamBox] = useState("");
+  const [friendList, setFriendList] = useState([]);
   const [insideName, setInsideName] = useState("prev");
+  const NAME = localStorage.getItem("token");
 
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -40,10 +42,11 @@ function ContactList() {
       setName("createGroup");
     }, 100);
   };
-  const handleHam=()=>{
-    if(hamBox===""){setHamBox("true")}
-    else(setHamBox(""))
-  }
+  const handleHam = () => {
+    if (hamBox === "") {
+      setHamBox("true");
+    } else setHamBox("");
+  };
   const handleBack = () => {
     setName("options");
     setInsideName("prev");
@@ -77,17 +80,36 @@ function ContactList() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const dummy = [
-    { contact: "deepak", recentText: "good morning ", time: "19:23" },
-    { contact: "anishkha", recentText: "lets see tmr ", time: "18:23" },
-    { contact: "nibba", recentText: "watch me", time: "19:23" },
-    { contact: "jackie", recentText: "good man!", time: "29:23" },
-    { contact: "sabari", recentText: "whatsapp bruh?", time: "17:03" },
-    { contact: "srinivasan", recentText: "glad", time: "09:23" },
-  ];
+  useEffect(() => {
+    const list = async () => {
+      const result = await fetch(
+        "http://localhost:3000/api/friend/getfriendsaccepted",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            USER: NAME,
+          }),
+        }
+      );
+      const ls = await result.json();
+      console.log(ls)
+      let temp = ls.requests.map((item) => ({
+        contact: item .username,
+        recentText: item.recentText,
+        time: item.time,
+      }));
+      setFriendList(temp);
+      console.log(friendList)
+    };
+    list();
+  }, []);
+  
 
   return (
+   
     <div className="contactList">
       <div className="contactList-header">
         <div>Chats</div>
@@ -105,7 +127,7 @@ function ContactList() {
                 </div>
 
                 <div className="frequent">frequently Contacted</div>
-                {dummy.map((item, i) => (
+                {friendList.map((item, i) => (
                   <div className="group-box" key={`f-${i}`}>
                     <div>
                       <CgProfile />
@@ -115,7 +137,7 @@ function ContactList() {
                 ))}
 
                 <div className="frequent">All Contacts</div>
-                {dummy.map((item, i) => (
+                {friendList.map((item, i) => (
                   <div className="group-box" key={`a-${i}`}>
                     <div>
                       <CgProfile />
@@ -150,7 +172,7 @@ function ContactList() {
                   className="seachGroup-inp"
                 />
                 <div className="frequent">All Contacts</div>
-                {dummy.map((item, i) => (
+                {friendList.map((item, i) => (
                   <div className="newGroup-box" key={`ng-${i}`}>
                     <div>
                       <CgProfile />
@@ -191,7 +213,7 @@ function ContactList() {
                       className="seachGroup-inp"
                     />
                     <div className="frequent">All Contacts</div>
-                    {dummy.map((item, i) => (
+                    {friendList.map((item, i) => (
                       <div className="newGroup-box" key={`cg-${i}`}>
                         <div>
                           <CgProfile />
@@ -236,8 +258,8 @@ function ContactList() {
           <FaBarsStaggered onClick={handleHam} className="react-icons" />
           {hamBox === "true" && (
             <div className="ham-box">
-              <div onClick={()=>navigate('/friendrequest')}>requests</div>
-              <div onClick={()=>navigate('/addfriend')}>add friends</div>
+              <div onClick={()=>navigate('/friendrequest')}>Requests</div>
+              <div onClick={()=>navigate('/addfriend')}>Add friends</div>
             </div>
           )}
         </div>
@@ -276,7 +298,7 @@ function ContactList() {
         </div>
       )}
 
-      {dummy.map((item, ind) => (
+      {friendList.map((item, ind) => (
         <div
           className="contact-box"
           key={ind}

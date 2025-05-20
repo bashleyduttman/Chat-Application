@@ -1,4 +1,6 @@
-/* above code is temporary delete once project got over */
+/* ContactList.css */
+
+/* Temporary style note: delete once project is over */
 .contactList {
   background-color: rgb(26, 22, 22);
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
@@ -13,64 +15,66 @@
   font-size: clamp(0.5rem, 2vw, 1.5rem);
   user-select: none;
 }
+
 .contact-box {
   display: flex;
   cursor: pointer;
   justify-content: space-between;
   transition: all 0.2s ease-in-out;
+  background-color: rgb(26, 22, 22);
+}
+.contact-box:hover {
+  background-color: rgb(41, 39, 37);
 }
 .contact-box:focus {
   background-color: black;
 }
-/* ContactList.css */
+
 input[type="checkbox"] {
   width: 18px;
   height: 18px;
   accent-color: seagreen; /* Modern browsers */
   cursor: pointer;
 }
-.ham-box{
- cursor: pointer;
+
+.ham-box {
+  cursor: pointer;
   background-color: #292727;
-  /* gap:10px; */
- 
+  z-index: 200;
   position: absolute;
- size:100px;
- right: 0px;
-  
+  right: 0px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-
-
 }
-
-.ham-box div:hover{
+.ham-box div:hover {
   background-color: #131111;
-  
 }
-.ham-box div{
+.ham-box div {
   padding: 10px;
   border-bottom: 1px solid black;
-  
 }
+
 .contact-outer-box {
   display: flex;
-
+  font-size: clamp(0.5rem, 2vw, 1.5rem);
 }
+
 .contact-in-box {
   display: flex;
-  /* width: 100%; */
   font-weight: bold;
   flex-direction: column;
 }
+
 .others {
   color: green;
   font-weight: bolder;
 }
+
 .contact-name {
   color: white;
 }
+
 .recent-msg {
   white-space: nowrap;
   overflow: hidden;
@@ -78,42 +82,37 @@ input[type="checkbox"] {
   max-width: 300px;
   color: rgb(105, 97, 97);
 }
-.contact-box {
-  background-color: rgb(26, 22, 22);
-}
-.contact-box:hover {
-  background-color: rgb(41, 39, 37);
-}
+
 .menu-box {
   border-radius: 10px;
   transition: all 0.2s ease-in;
-  z-index: 1000;
+  z-index: 100;
   display: flex;
-  /* font-size: 20px; */
-  color:white;
+  color: white;
   height: 200px;
-  
   justify-content: space-around;
   flex-direction: column;
-  transition: all 0.2s ease;
   background-color: rgb(43, 42, 42);
-  /* box-shadow: 2px 2px 2px rgb(50, 48, 48); */
 }
+
 .contactList-header {
   display: flex;
   width: 100%;
   justify-content: space-between;
   color: white;
+  position: relative;
+  overflow: visible;
 }
+
 .search-box {
   display: flex;
-
   align-items: center;
 }
+
 .chat-inp {
   width: 100%;
   color: rgb(254, 254, 254);
-  font-size: 20px;
+  font-size: clamp(0.7rem, 2vw, 1.2rem);
   padding-left: 40px;
   height: 40px;
   border-radius: 10px;
@@ -125,58 +124,50 @@ input[type="checkbox"] {
   border-right: none;
   background-color: rgb(26, 22, 22);
 }
-.menu-box div {
-  cursor: pointer;
-}
 
 .chat-inp:focus {
   background-color: rgb(17, 13, 13);
 }
+
+.menu-box div {
+  cursor: pointer;
+}
+
 .react-icons {
   cursor: pointer;
   font-size: 26px;
 }
-.react-icons:hover{
-  color:rgb(99, 87, 87)
+.react-icons:hover {
+  color: rgb(99, 87, 87);
 }
+
 .search-icon {
   position: absolute;
   left: 38px;
   color: rgb(70, 65, 65);
 }
+
 .menu-inside-box {
   display: flex;
-  /* height: 50px; */
-  /* padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px; */
-  padding:10px;
+  padding: 10px;
 }
+
 .menu-inside-box:hover {
- 
   background-color: rgb(20, 20, 17);
-  
-}
-.contactList-header {
-  position: relative;
-  overflow: visible;
 }
 
 .hidden-menu {
   position: absolute;
-  z-index: 1000;
+  z-index: 10000;
   padding: 8px;
   background-color: rgb(20, 16, 16);
   border-radius: 10px;
-  width: 350px;
+  width: 300px;
   
-  overflow-y: auto;
-  overflow-x: hidden;
-  box-sizing: border-box;
-  max-height: 600px;
   min-height: 400px;
+  
 }
+
 .hidden-menu::-webkit-scrollbar {
   width: 3px;
 }
@@ -190,6 +181,7 @@ input[type="checkbox"] {
 .hidden-menu::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 .group-box {
   display: flex;
   gap: 30px;
@@ -198,9 +190,8 @@ input[type="checkbox"] {
   height: 50px;
   cursor: pointer;
   align-items: center;
-  
 }
-.newGroup-box{
+.newGroup-box {
   display: flex;
   gap: 30px;
   padding: 20px;
@@ -212,22 +203,24 @@ input[type="checkbox"] {
 .newGroup-box > :last-child {
   margin-left: auto;
 }
-.group-box:hover,.newGroup-box:hover {
+.group-box:hover,
+.newGroup-box:hover {
   background-color: rgb(30, 28, 25);
 }
+
 .list-box {
   display: flex;
-
   flex-direction: column;
- 
 }
-.nextStep{
+
+.nextStep {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
   padding: 30px;
 }
-.nextStep-first{
+
+.nextStep-first {
   background-color: green;
   padding-left: 30px;
   padding-right: 30px;
@@ -236,30 +229,30 @@ input[type="checkbox"] {
   padding-bottom: 10px;
   cursor: pointer;
   transition: all 0.3s ease-in;
-  
 }
-.outerGroup-box{
+
+.outerGroup-box {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 400px;
 }
-.groupName-inp{
+
+.groupName-inp {
   width: 100%;
-  
   height: 40px;
   border-radius: 10px;
   outline: none;
   padding-left: 20px;
 }
-.createGroup-box{
+
+.createGroup-box {
   display: flex;
- 
   flex-direction: column;
-  
-gap:20px
+  gap: 20px;
 }
-.nextStep-second{
+
+.nextStep-second {
   background-color: rgb(42, 45, 42);
   padding-left: 20px;
   padding-right: 20px;
@@ -268,34 +261,36 @@ gap:20px
   cursor: pointer;
   padding-bottom: 10px;
   transition: all 0.3s ease-in;
-
 }
-.nextStep-first:hover{
+.nextStep-first:hover {
   background-color: rgb(92, 178, 92);
 }
-.nextStep-second:hover{
+.nextStep-second:hover {
   background-color: #292727;
 }
+
 .frequent {
   text-align: start;
   padding: 10px;
-  font-size: small;
+  font-size: clamp(0.6rem, 1.5vw, 1rem);
 }
-.seachGroup-inp{
+
+.seachGroup-inp {
   width: 100%;
   height: 40px;
   background-color: #292727;
   border: none;
   padding-left: 20px;
-  color:white;
+  color: white;
   border-radius: 10px;
-  font-size: large;
+  font-size: clamp(0.7rem, 2vw, 1.2rem);
   outline: none;
 }
-.seachGroup-inp:focus{
+.seachGroup-inp:focus {
   border-bottom: solid 2px green;
 }
-.group-profile{
+
+.group-profile {
   display: flex;
   width: 100%;
   justify-content: space-around;

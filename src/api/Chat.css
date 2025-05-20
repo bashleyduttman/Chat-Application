@@ -1,0 +1,18 @@
+.chat-mainPage{
+      display: flex;
+  height: 100vh; /* Fill full screen */
+}
+.chat-mainPage > * {
+  flex: 1; 
+  overflow: hidden; 
+}
+/* .chat-mainPage {
+  height: 100vh;
+  width: 100%;
+} */
+
+.resize-handle {
+  width: 5px;
+  background-color: #888;
+  cursor: col-resize;
+}
