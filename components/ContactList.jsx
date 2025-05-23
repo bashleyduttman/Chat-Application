@@ -9,10 +9,11 @@ import { MdDelete } from "react-icons/md";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
+import {io} from 'socket.io-client'
 
 import "./ContactList.css";
 
-function ContactList() {
+function ContactList({setData}) {
   const [box, setBox] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
@@ -22,6 +23,16 @@ function ContactList() {
   const [friendList, setFriendList] = useState([]);
   const [insideName, setInsideName] = useState("prev");
   const NAME = localStorage.getItem("token");
+  
+  const socketRef = useRef(null); 
+  useEffect(() => {
+    socketRef.current = io("http://localhost:3000");
+
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
+
 
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -75,38 +86,63 @@ function ContactList() {
       setName("");
     }
   };
+  const handleChatSpace = async (id) => {
+    try {
+      
+      const response = await fetch("http://localhost:3000/api/friend/access-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          USER: NAME,
+          userId: id,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      if (socketRef.current && data._id) {
+        socketRef.current.emit("joinChat", {
+          chatId: data._id,
+          user: NAME,
+        });
+      }
+
+      setData(data._id);
+    } catch (err) {
+      console.error("Failed to join chat:", err);
+    }
+  };
+
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  useEffect(() => {
+    useEffect(() => {
     const list = async () => {
-      const result = await fetch(
-        "http://localhost:3000/api/friend/getfriendsaccepted",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            USER: NAME,
-          }),
-        }
-      );
+      const result = await fetch("http://localhost:3000/api/friend/getfriendsaccepted", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ USER: NAME }),
+      });
+
       const ls = await result.json();
-      console.log(ls)
-      let temp = ls.requests.map((item) => ({
-        contact: item .username,
+      const temp = ls.requests.map((item) => ({
+        contact: item.username,
+        id: item._id,
         recentText: item.recentText,
         time: item.time,
       }));
       setFriendList(temp);
-      console.log(friendList)
     };
+
     list();
-  }, []);
-  
+  }, [NAME]);
 
   return (
    
@@ -299,7 +335,7 @@ function ContactList() {
       )}
 
       {friendList.map((item, ind) => (
-        <div
+        <div onClick={()=>handleChatSpace(item.id)}
           className="contact-box"
           key={ind}
           onContextMenu={(e) => handleRightClick(e, ind)}

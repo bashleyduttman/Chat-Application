@@ -1,52 +1,169 @@
-.main-chatspace{
-    width:100%;
-    min-height: 100vh;
-    position: relative;
-    background-color: rgb(39, 40, 39);
+.main-chatspace {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.chatinput{
-    width:100%;
-    height: 35px;
-    background-color: rgb(32, 33, 32);
-    border: none;
-    outline: none;
-  
-    font-size: 20px;
-    color:white;
-      padding-left: 40px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+.chatinput {
+  width: 100%;
+  height: 45px;
+  background-color: rgba(45, 45, 45, 0.9);
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 0 50px;
+  border-radius: 25px;
+  border: 1px solid #444;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.chatinput:focus {
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
 .chatbox-inp {
-   position: absolute; /* ✅ This is missing */
-   bottom: 0px;
-   width: 100%;
-   display: flex;
-   z-index: 20000;
-   align-items: center;
+  position: relative;
+  width: 100%;
+  z-index: 20;
+  background-color: rgba(39, 40, 39, 0.9);
+  padding: 15px;
+  border-top: 1px solid #333;
+  backdrop-filter: blur(5px);
 }
 
-.emoji-pickers{
-    position: absolute;
-    left: 0px;
-    top:8px;
-  
-    color:white;
-}
-
-.chatbox-inp button {
-  margin-left: 5px;
-  font-size: 20px;
+.emoji-pickers {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0a0a0;
+  transition: all 0.2s ease;
   background: none;
   border: none;
   cursor: pointer;
+  font-size: 22px;
 }
 
-.message {
-  padding: 6px 10px;
-  margin: 5px;
-  border-radius: 10px;
-  max-width: 70%;
+.emoji-pickers:hover {
+  color: #4a9eff;
+  transform: translateY(-50%) scale(1.1);
 }
 
+.send-button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4a9eff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  transition: all 0.2s ease;
+}
 
+.send-button:hover {
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.chatarea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #4a9eff #2d2d2d;
+}
+
+.chatarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatarea::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 3px;
+}
+
+.chatarea::-webkit-scrollbar-thumb {
+  background-color: #4a9eff;
+  border-radius: 3px;
+}
+
+.sender,
+.receiver {
+  max-width: 75%;
+  padding: 12px 18px;
+  border-radius: 18px;
+  word-wrap: break-word;
+  font-size: 15px;
+  line-height: 1.4;
+  margin: 5px 10px;
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sender {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #4a9eff 0%, #2a7de1 100%);
+  color: white;
+  border-bottom-right-radius: 5px;
+}
+
+.receiver {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  color: #333;
+  border-bottom-left-radius: 5px;
+}
+
+/* Emoji Picker Styling */
+.emoji-picker-container {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  z-index: 1000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  transform-origin: bottom left;
+  animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Timestamp (optional) */
+.message-time {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+  text-align: right;
+}
+
+.receiver .message-time {
+  color: rgba(0, 0, 0, 0.5);
+}
