@@ -1,6 +1,7 @@
 const user = require("../models/user");
 const friendRequestDB = require("../models/friendRequest");
 const Chat = require("../models/chat");
+const Message = require("../models/message");
 const requestFriend = async (req, res) => {
   try {
     const { USER, friend_id } = req.body;
@@ -31,40 +32,46 @@ const requestaccepted = async (req, res) => {
     const { USER } = req.body;
     console.log(USER);
 
+    // Find the user by username
     const isUser = await user.findOne({ username: USER }).select("_id");
     if (!isUser) {
       return res.status(400).json({ message: "no user available" });
     }
 
-    // Get all accepted friend requests where the user is either sender or receiver
+    // Find all accepted friend requests involving this user
     const fq = await friendRequestDB.find({
       status: "accepted",
       $or: [{ receiver: isUser._id }, { sender: isUser._id }],
     });
 
-    // Extract friend IDs (the "other" person in the request)
+    // Extract the IDs of the user's friends
     const friendIds = fq.map((req) =>
       req.sender.equals(isUser._id) ? req.receiver : req.sender
     );
 
-    // Fetch their usernames
+    // Fetch usernames and IDs of friends
     const friends = await user
       .find({ _id: { $in: friendIds } })
-      .select("username");
+      .select(["username", "_id"]);
 
-    // Map for fast lookup
+    // Create a map for fast lookup
     const friendMap = {};
     friends.forEach((friend) => {
-      friendMap[friend._id.toString()] = friend.username;
+      friendMap[friend._id.toString()] = {
+        username: friend.username,
+        _id: friend._id,
+      };
     });
 
-    // Prepare final output
+    // Prepare final result
     const combined = fq.map((req) => {
       const friendId = req.sender.equals(isUser._id)
         ? req.receiver
         : req.sender;
+      const friendData = friendMap[friendId.toString()];
       return {
-        username: friendMap[friendId.toString()],
+        username: friendData.username,
+        _id: friendData._id,
         status: req.status,
       };
     });
@@ -163,31 +170,44 @@ const rejectRequest = async (req, res) => {
 };
 const accessChat = async (req, res) => {
   try {
-    const { userId } = req.body;
-    const loggedUserId = req.user._id;
+    const { USER, userId } = req.body;
 
+    const isUser = await user.findOne({ username: USER });
+    const loggedUserId = isUser._id;
+    
     if (!userId) {
       return res.status(400).json({ message: "UserId is required" });
     }
-
-   
+    console.log(`logged in id ${loggedUserId} frined id ${userId}`)
     let existingChat = await Chat.findOne({
       isGroupChat: false,
       participants: { $all: [loggedUserId, userId] },
-    }).populate("participants", "-password"); 
+    }).populate("participants", "-password");
     if (existingChat) {
       return res.status(200).json(existingChat);
     }
 
-    
     const newChat = await Chat.create({
       isGroupChat: false,
       participants: [loggedUserId, userId],
     });
 
-    return res.status(201).json(newChat);
+    return res.status(201).json({ message: "chat created" });
   } catch (error) {
     console.error("Error in accessChat:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+const getMessage = async (req, res) => {
+  console.log("hello");
+  try {
+    const { chatId } = req.body;
+
+    const chats = await Message.find({ chatId });
+
+    res.status(200).json({ messages: chats });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -200,4 +220,5 @@ module.exports = {
   rejectRequest,
   requestaccepted,
   accessChat,
+  getMessage,
 };
